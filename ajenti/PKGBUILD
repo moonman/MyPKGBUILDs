@@ -1,6 +1,6 @@
 pkgname=ajenti
 pkgver=1.2.17
-pkgrel=1
+pkgrel=2
 pkgdesc="An easy server administration frontend."
 arch=('any')
 url="http://ajenti.org/"
@@ -16,7 +16,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/Eugeny/$pkgname/archive/$pk
 
 md5sums=('044dc71f9eb8f9c0bf4159d24630c377'
          '075c899d7c3725ee53ed479b24ff0588'
-         'ebe892b044f0163e8d092bd6568b6c2b')
+         'e5ddc4392334e0ff4cc7590bc8e4bf1e')
 
 backup=('etc/ajenti/config.json')
 

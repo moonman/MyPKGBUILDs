@@ -3,7 +3,7 @@ Description=Ajenti - an easy server administration frontend
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/ajenti-panel -d
+ExecStart=/usr/bin/ajenti-panel
 KillMode=process
 PIDFile=/run/ajenti-ipc.sock
 
