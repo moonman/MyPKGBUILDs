@@ -12,7 +12,7 @@ _pkgver=${_major}u${_minor}
 pkgver=${_major}.${_minor}
 pkgrel=1
 pkgdesc="Java Runtime Environment"
-arch=('arm' 'armv6h)
+arch=('arm' 'armv6h')
 url=http://www.oracle.com/technetwork/java/javase/downloads/index.html
 license=('custom')
 depends=('shared-mime-info' 'xdg-utils')
@@ -23,10 +23,17 @@ conflicts=("${provides[@]}")
 backup=('etc/profile.d/jre.csh'
         'etc/profile.d/jre.sh')
 install=jre.install
-source=("ejre-${_major}u${_minor}-fcs-b${_build}-linux-arm-sflt-headless-${_date}.tar.gz"
+
+if [ "$CARCH" == "armv6h" ]; then
+   file=ejre-${_major}u${_minor}-fcs-b${_build}-linux-arm-vfp-hflt-client_headless-${_date}.tar.gz
+else
+   file=ejre-${_major}u${_minor}-fcs-b${_build}-linux-arm-sflt-headless-${_date}.tar.gz
+fi
+
+
+source=("${file}"
         'jre.csh'
         'jre.sh')
-[ "$CARCH" = 'armv6h' ] source[0]=ejre-${_major}u${_minor}-fcs-b${_build}-linux-arm-vfp-hflt-client_headless-${_date}.tar.gz
 
 md5sums=('fba114c4848c864afcea71198aebfc90'
          '92dec202858f2bf7729c6805b1bd3ae4'
