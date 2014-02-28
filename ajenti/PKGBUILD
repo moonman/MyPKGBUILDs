@@ -1,3 +1,5 @@
+#Maintainer: Oleg Rakhmanov <orakhmanov [at] gmail [dot] com>
+
 pkgname=ajenti
 pkgver=1.2.17
 pkgrel=2
