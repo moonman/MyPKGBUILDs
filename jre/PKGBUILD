@@ -12,7 +12,7 @@ _pkgver=${_major}u${_minor}
 pkgver=${_major}.${_minor}
 pkgrel=1
 pkgdesc="Java Runtime Environment"
-arch=('arm')
+arch=('arm' 'armv6h)
 url=http://www.oracle.com/technetwork/java/javase/downloads/index.html
 license=('custom')
 depends=('shared-mime-info' 'xdg-utils')
@@ -31,7 +31,7 @@ source=("ejre-${_major}u${_minor}-fcs-b${_build}-linux-arm-sflt-headless-${_date
 md5sums=('fba114c4848c864afcea71198aebfc90'
          '92dec202858f2bf7729c6805b1bd3ae4'
          '85ba1d2b39d5e6efad89ef98d0f19909')
-[ "$CARCH" = 'armv6h' ] && md5sums[0]='1f6a93cc5ef5f66bb01bc39fd731cd9f'
+[ "$CARCH" = 'armv6h' ] && md5sums[0]='9b00967670f564d518486b42d12c3077'
 
 package() {
   msg2 "Creating required dirs"
