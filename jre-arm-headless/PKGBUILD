@@ -1,7 +1,23 @@
 # Maintainer: Oleg Rakhmanov <orakhmanov [at] gmail [dot] com>
 # Contributors: Charles Ghislain, Guillaume ALAUX, Daniel J Griffiths, Jason Chu, Geoffroy Carrier, Army, kfgz, Thomas Dziedzic, Dan Serban, jjacky, EasySly
 
-pkgname=jre
+###########################################################################################################
+#Note: 	Oracle does not allow for redistribution for JRE, on top of this,
+#	to get the embedded version one needs to register.
+#
+#	To build this package YOU need to provide the source tarball availe here:
+#	http://www.oracle.com/technetwork/java/embedded/downloads/javase/index.html
+#
+#	Armv6h and Armv7h: "ARMv6/7 Linux - Headless - Client Compiler EABI, VFP, HardFP ABI, Little Endian"
+#	(Last I checked it was at the top of the ARM the list)
+#
+#	Armv5: "ARMv5 Linux - Headless EABI, SoftFP ABI, Little Endian"
+#	(Last I checked it was at the bottom of te ARM list)
+#	
+#	Put the tarball in the same directory with PKGBUILD and run makepkg
+###########################################################################################################
+
+pkgname=jre-arm-headless
 _major=7
 _minor=51
 _build=13
@@ -11,8 +27,8 @@ _date=18_dec_2013
 _pkgver=${_major}u${_minor}
 pkgver=${_major}.${_minor}
 pkgrel=1
-pkgdesc="Java Runtime Environment"
-arch=('arm' 'armv6h')
+pkgdesc="Oracle Embedded Java Runtime Environment for ARM - headless"
+arch=('arm' 'armv6h' 'armv7h')
 url=http://www.oracle.com/technetwork/java/javase/downloads/index.html
 license=('custom')
 depends=('shared-mime-info' 'xdg-utils')
@@ -24,12 +40,11 @@ backup=('etc/profile.d/jre.csh'
         'etc/profile.d/jre.sh')
 install=jre.install
 
-if [ "$CARCH" == "armv6h" ]; then
+if [ "$CARCH" == "armv6h" -o "$CARCH" == "armv7h" ]; then
    file=ejre-${_major}u${_minor}-fcs-b${_build}-linux-arm-vfp-hflt-client_headless-${_date}.tar.gz
 else
    file=ejre-${_major}u${_minor}-fcs-b${_build}-linux-arm-sflt-headless-${_date}.tar.gz
 fi
-
 
 source=("${file}"
         'jre.csh'
