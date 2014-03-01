@@ -9,15 +9,15 @@
 #	http://www.oracle.com/technetwork/java/embedded/downloads/javase/index.html
 #
 #	Armv6h and Armv7h: "ARMv6/7 Linux - Headless - Client Compiler EABI, VFP, HardFP ABI, Little Endian"
-#	(Last I checked it was at the top of the ARM the list)
+#	(Last I checked it was at the top of the ARM list)
 #
 #	Armv5: "ARMv5 Linux - Headless EABI, SoftFP ABI, Little Endian"
-#	(Last I checked it was at the bottom of te ARM list)
+#	(Last I checked it was at the bottom of the ARM list)
 #	
 #	Put the tarball in the same directory with PKGBUILD and run makepkg
 ###########################################################################################################
 
-pkgname=jre-arm-headless
+pkgname=ejre-arm-headless
 _major=7
 _minor=51
 _build=13
@@ -32,39 +32,39 @@ arch=('arm' 'armv6h' 'armv7h')
 url=http://www.oracle.com/technetwork/java/javase/downloads/index.html
 license=('custom')
 depends=('shared-mime-info' 'xdg-utils')
-optdepends=('alsa-lib: sound'
-            'ttf-dejavu: fonts')
+optdepends=('alsa-lib: sound')
 provides=("java-runtime=$_major" "java-runtime-headless=$_major")
 conflicts=("${provides[@]}")
-backup=('etc/profile.d/jre.csh'
-        'etc/profile.d/jre.sh')
-install=jre.install
+backup=('etc/profile.d/ejre.csh'
+        'etc/profile.d/ejre.sh')
+install=ejre-arm-headless.install
 
 if [ "$CARCH" == "armv6h" -o "$CARCH" == "armv7h" ]; then
-   file=ejre-${_major}u${_minor}-fcs-b${_build}-linux-arm-vfp-hflt-client_headless-${_date}.tar.gz
+   _source=ejre-${_major}u${_minor}-fcs-b${_build}-linux-arm-vfp-hflt-client_headless-${_date}.tar.gz
 else
-   file=ejre-${_major}u${_minor}-fcs-b${_build}-linux-arm-sflt-headless-${_date}.tar.gz
+   _source=ejre-${_major}u${_minor}-fcs-b${_build}-linux-arm-sflt-headless-${_date}.tar.gz
 fi
 
-source=("${file}"
-        'jre.csh'
-        'jre.sh')
+source=("${_source}"
+        'ejre.csh'
+        'ejre.sh')
 
 md5sums=('fba114c4848c864afcea71198aebfc90'
-         '92dec202858f2bf7729c6805b1bd3ae4'
-         '85ba1d2b39d5e6efad89ef98d0f19909')
+         '6fdb3e968f76bdc56cbe7bdb720e3dcc'
+         'fccc55f6ac29f16dd08d5ac167b80ee4')
+
 [ "$CARCH" = 'armv6h' ] && md5sums[0]='9b00967670f564d518486b42d12c3077'
 
 package() {
   msg2 "Creating required dirs"
   cd ejre1.$_major.0_$_minor
-  mkdir -p "$pkgdir"/{opt/java/jre,usr/share/licenses/jre,etc/{.java/.systemPrefs,profile.d}}
+  mkdir -p "$pkgdir"/{opt/java/ejre,usr/share/licenses/ejre,etc/profile.d}
 
   msg2 "Moving stuff in place"
-  mv COPYRIGHT *.txt "$pkgdir"/usr/share/licenses/jre/
-  mv * "$pkgdir"/opt/java/jre/
+  mv COPYRIGHT *.txt "$pkgdir"/usr/share/licenses/ejre/
+  mv * "$pkgdir"/opt/java/ejre/
 
   msg2 "Installing the scripts, confs of our own"
   cd "$srcdir"
-  install -m755 jre.{,c}sh "$pkgdir"/etc/profile.d/
+  install -m755 ejre.{,c}sh "$pkgdir"/etc/profile.d/
 }
