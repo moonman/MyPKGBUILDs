@@ -1,8 +1,10 @@
 #Maintainer: Oleg Rakhmanov <orakhmanov [at] gmail [dot] com>
 
 pkgname=ajenti
-pkgver=1.2.17
-pkgrel=2
+pkgver=1.2.18.1 # found under ajenti/__init__.py
+pkgrel=1
+_commit=a5bac57c7ee2a3944b2d758c2c4e2ce03f965549
+
 pkgdesc="An easy server administration frontend."
 arch=('any')
 url="http://ajenti.org/"
@@ -12,18 +14,18 @@ depends=('python2' 'python2-gevent' 'python2-gevent-socketio'
   'python2-catcher' 'python2-reconfigure' 'python2-pyopenssl'
   'python2-pillow' 'python2-exconsole') 
 makedepends=('python2' 'coffee-script' 'lessc' 'yuicompressor' 'git')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Eugeny/$pkgname/archive/$pkgver.tar.gz"
+source=("https://github.com/Eugeny/$pkgname/archive/${_commit}.tar.gz"
   "ajenti.install"
   "ajenti.service")
 
-md5sums=('044dc71f9eb8f9c0bf4159d24630c377'
+md5sums=('b122411124e0beb408aac06120cebf91'
          '075c899d7c3725ee53ed479b24ff0588'
          'e5ddc4392334e0ff4cc7590bc8e4bf1e')
 
 backup=('etc/ajenti/config.json')
 
 prepare() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_commit"
   
   msg2 'Replacing python shebang by python2 shebang...'
   find . -type f -exec sed -i \
@@ -37,17 +39,17 @@ prepare() {
 }
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_commit"
 
   msg2 'Build tgz archive'
   make tgz
 
-  cd "$srcdir/$pkgname-$pkgver/dist"
+  cd "$srcdir/$pkgname-$_commit/dist"
   tar xzf $pkgname-$pkgver.tar.gz
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver/dist/$pkgname-$pkgver"
+  cd "$srcdir/$pkgname-$_commit/dist/$pkgname-$pkgver"
   
   python2 setup.py install --prefix=/usr --root=$pkgdir
  
