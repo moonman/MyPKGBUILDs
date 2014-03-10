@@ -3,7 +3,7 @@
 pkgname=pogoplug
 _sourcename="cloudengines_pogoplug_3_4_1_201401211539_upgrade"
 pkgver=3.4.1
-pkgrel=1
+pkgrel=2
 
 pkgdesc="my.pogoplug.com service daemon"
 url="my.pogoplug.com"
@@ -13,7 +13,7 @@ options=(!strip)
 install=pogoplug.install
 source=("http://upgrade.pogoplug.com/svc/upgrade/${_sourcename}"
         'ffmpeg'
-	'pogoplug'
+	'pogoplug.initd'
 	'pogoplug.service'
 	'pogoplug.sh'
 	'hbplug.conf')
@@ -46,11 +46,13 @@ package() {
   cp -r ./* "${pkgdir}/usr/local/cloudengines"
   cp "${srcdir}/pogoplug.sh" "${pkgdir}/usr/local/cloudengines"
   cp "${srcdir}/ffmpeg" "${pkgdir}/usr/local/cloudengines"
-  
-  mkdir -p "${pkgdir}/etc/rc.d"
-  cp "${srcdir}/hbplug.conf" "${pkgdir}/usr/local/cloudengines/bin/hbplug.conf"
-  cp "${srcdir}/pogoplug" "${pkgdir}/etc/rc.d"
+  cp "${srcdir}/hbplug.conf" "${pkgdir}/usr/local/cloudengines/bin/hbplug.conf" 
 
+  # Initscript
+  mkdir -p "${pkgdir}/etc/rc.d"
+  cp "${srcdir}/pogoplug.initd" "${pkgdir}/etc/rc.d/pogoplug"
+
+  # Systemd service
   mkdir -p "${pkgdir}/usr/lib/systemd/system"
   cp "${srcdir}/pogoplug.service" "${pkgdir}/usr/lib/systemd/system"
 }
