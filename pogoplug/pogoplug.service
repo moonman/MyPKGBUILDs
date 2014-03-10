@@ -1,0 +1,13 @@
+[Unit]
+Description=my.pogoplug.com service daemon
+After=network.target
+
+[Service]
+User=root
+Type=oneshot
+ExecStart=/usr/bin/sh /usr/local/cloudengines/pogoplug.sh
+ExecStop=/usr/bin/killall hbwd
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

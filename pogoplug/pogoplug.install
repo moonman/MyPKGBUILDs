@@ -1,0 +1,44 @@
+post_install() {
+      echo "Preventing updates..."
+      echo "127.0.0.1	upgrade.pogoplug.com" >> /etc/hosts
+
+      echo "***********************************************************"
+      echo "Run" 
+      echo "/usr/local/cloudengines/bin/hbplug | grep \"Device ID\\|CRYPTO\""
+      echo "several times until CRYPTO KEY says VALID and wait 60 sec"
+      echo "after running it each time."
+      echo " "
+      echo "If after 5 attempts it still says UNSET"
+      echo "reboot the device and try again."
+      echo "" 
+      echo "When it finally says valid, copy the generated Device ID"
+      echo "to /usr/local/cloudengines/bin/hbplug.conf under svcid"
+      echo "variable, then move hbplug.conf to /etc/pogoplug.conf"
+      echo "mv /usr/local/cloudengines/bin/hbplug.conf /etc/pogoplug.conf"
+      echo " "
+      echo "Beware! each CRYPTO KEY is tied to DEVICE ID"
+      echo "And each reboot you will have a new DEVICE ID"
+      echo "until you have it fixed in /etc/pogoplug.conf"
+      echo "***********************************************************"
+
+
+      echo "Don't forget to (re)register your device at my.pogoplug.com"
+}
+
+pre_upgrade() {
+      echo "Backing up config..." && cp /etc/pogoplug.conf /tmp/pogoplug.conf.bak && echo "done!"
+}
+
+post_upgrade() {
+      echo "Restoring config..." && echo "done!"
+      rm /etc/pogoplug.conf
+      cp /tmp/pogoplug.conf.bak /etc/pogoplug.conf
+ 
+     #Remove the dummy hbplug.conf because we are updating
+     rm /usr/local/cloudengines/bin/hbplug.conf
+}
+
+post_remove() {
+
+      sed -i '/upgrade.pogoplug.com/d' /etc/hosts     
+}

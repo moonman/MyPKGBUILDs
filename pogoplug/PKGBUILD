@@ -1,0 +1,57 @@
+# Maintainer: Oleg Rakhmanov < orakhmanov [at] gmail [dor] com >
+
+pkgname=pogoplug
+_sourcename="cloudengines_pogoplug_3_4_1_201401211539_upgrade"
+pkgver=3.4.1
+pkgrel=1
+
+pkgdesc="my.pogoplug.com service daemon"
+url="my.pogoplug.com"
+arch=('arm')
+license=('Other')
+options=(!strip)
+install=pogoplug.install
+source=("http://upgrade.pogoplug.com/svc/upgrade/${_sourcename}"
+        'ffmpeg'
+	'pogoplug'
+	'pogoplug.service'
+	'pogoplug.sh'
+	'hbplug.conf')
+
+md5sums=('a383463341b81c79c438bdf5111f4688'
+         '74f692c0a0de67fe02be36be805948fa'
+         'ea1246d017a0c45cd3815fc8c987a9b6'
+         '818ac722f06d3f7be4aef3cf171926a6'
+         '7d350ce7e29748773dc39412ff185c62'
+         '444e20b3e7b270480021fa16d9fe1aa7')
+
+prepare (){
+#Prepare the directory where source will be extracted
+cd ${srcdir}
+mkdir cloudengines
+mv ${_sourcename} cloudengines/
+cd cloudengines
+
+#Extract the package
+chmod +x ${_sourcename}
+./${_sourcename} | awk '/Reboot\ required/{exit}1'
+
+#Make sure source package doesn't make it into the final package.
+rm ${_sourcename}
+} 
+
+package() {
+  cd "${srcdir}/cloudengines"
+  mkdir -p "${pkgdir}/usr/local/cloudengines"
+  cp -r ./* "${pkgdir}/usr/local/cloudengines"
+  cp "${srcdir}/pogoplug.sh" "${pkgdir}/usr/local/cloudengines"
+  cp "${srcdir}/ffmpeg" "${pkgdir}/usr/local/cloudengines"
+  
+  mkdir -p "${pkgdir}/etc/rc.d"
+  cp "${srcdir}/hbplug.conf" "${pkgdir}/usr/local/cloudengines/bin/hbplug.conf"
+  cp "${srcdir}/pogoplug" "${pkgdir}/etc/rc.d"
+
+  mkdir -p "${pkgdir}/usr/lib/systemd/system"
+  cp "${srcdir}/pogoplug.service" "${pkgdir}/usr/lib/systemd/system"
+}
+

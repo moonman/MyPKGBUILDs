@@ -1,0 +1,21 @@
+ #!/bin/bash
+    #echo ffmpeg called with "$@" >>/tmp/pogo-ffmpeg.log
+
+    FFMPEG_DATADIR=/usr/local/cloudengines/bin
+    export FFMPEG_DATADIR
+
+    # -vframes 1 means only a single frame, a dead cert for thumbnail generation.
+    # it's a serious shortcut.. but these are the 9th and 10 args
+    # there's also something about mjpeg in the args and that's another big hint
+    if [ "${9}" == "-vframes" ] && [ "${10}" == "1" ]
+    then
+    #  echo thumbnailing >> /tmp/pogo-ffmpeg.log
+
+    # I've chosen to thumbnail 5 seconds in, because 0 seconds in is nearly always black.
+      /usr/bin/ffmpeg -ss 00:00:05 "$@"
+    else
+    #  echo NOT thumbnailing >> /tmp/pogo-ffmpeg.log
+     
+    # -vpre xce means it looks for xce.ffpreset in $FFMPEG_DATADIR, seemed to be missing from original args.
+     /usr/bin/ffmpeg -vpre xce "$@"
+    fi
