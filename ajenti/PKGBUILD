@@ -1,9 +1,9 @@
 #Maintainer: Oleg Rakhmanov <orakhmanov [at] gmail [dot] com>
 
 pkgname=ajenti
-pkgver=1.2.18.1 # found under ajenti/__init__.py
+pkgver=1.2.19.8 # found under ajenti/__init__.py
 pkgrel=1
-_commit=a5bac57c7ee2a3944b2d758c2c4e2ce03f965549
+_commit=588f7f1da679eace1775862a3be72be2d9ea7115
 
 pkgdesc="An easy server administration frontend."
 arch=('any')
@@ -18,7 +18,7 @@ source=("https://github.com/Eugeny/$pkgname/archive/${_commit}.tar.gz"
   "ajenti.install"
   "ajenti.service")
 
-md5sums=('b122411124e0beb408aac06120cebf91'
+md5sums=('943faeea45d624b192e7de495b1f8947'
          '075c899d7c3725ee53ed479b24ff0588'
          'e5ddc4392334e0ff4cc7590bc8e4bf1e')
 
