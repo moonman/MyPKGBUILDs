@@ -1,0 +1,59 @@
+# $Id$
+# Maintainer: Jan de Groot <jgc@archlinux.org>
+# Contributor: Ronny Lorenz <raumzeit@gmx.net>
+
+# ALARM: Kevin Mihelich <kevin@archlinuxarm.org>
+#  - enable omap, exynos, freedreno for v7
+
+
+buildarch=4
+
+pkgbasename=libdrm
+pkgname=${pkgbasename}-viv
+pkgver=2.4.52
+pkgrel=1
+pkgdesc="Userspace interface to kernel DRM services"
+arch=('armv7h')
+license=('custom')
+depends=('glibc' 'libpciaccess')
+makedepends=('valgrind')
+checkdepends=('cairo')
+replaces=('libdrm' 'libdrm-new' 'libdrm-nouveau')
+conflicts=('libdrm')
+provides=("libdrm=${pkgver}")
+url="http://dri.freedesktop.org/"
+groups=vivante-support
+source=(http://dri.freedesktop.org/$pkgbasename/$pkgbasename-$pkgver.tar.bz2
+        COPYING
+        drm-update-arm.patch)
+sha256sums=('fa693c2f1f61befcefbdcc396673e38481110bac9db610afa4b8afb2be0218c1'
+            '9631d4f694952e3e6ae5a05534c2e93e994e47d3413677a3a00e45c8cef6db93'
+            'a192f5471c2c8fcc0cfe3916bc5a449a565e7c95d9518adbd0bbe1ad40e3f2d1')
+
+build() {
+  cd $pkgbasename-$pkgver
+
+  [[ "$CARCH" == "armv7h" ]] && CONFIG="--enable-omap-experimental-api --enable-exynos-experimental-api --enable-freedreno-experimental-api"
+
+  # pthread is useless in Linux
+  sed -i "/pthread-stubs/d" configure.ac
+
+  # patch ARM support for Xorg interface to avoid freeze of Vivante samples
+  patch -p1 < "${srcdir}"/drm-update-arm.patch
+  autoreconf --force --install
+  
+  ./configure --prefix=/usr --enable-udev $CONFIG
+  make
+}
+
+check() {
+  cd $pkgbasename-$pkgver
+  make -k check
+}
+
+package() {
+  cd $pkgbasename-$pkgver
+  make DESTDIR="$pkgdir" install
+  install -m755 -d "$pkgdir/usr/share/licenses/$pkgbasename"
+  install -m644 ../COPYING "$pkgdir/usr/share/licenses/$pkgbasename/"
+}

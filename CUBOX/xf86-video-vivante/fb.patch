@@ -1,0 +1,18 @@
+diff -ur xserver-xorg-video-imx-viv-3.10.17-1.0.0_orig/EXA/src/vivante_fbdev/imx_display.c xserver-xorg-video-imx-viv-3.10.17-1.0.0/EXA/src/vivante_fbdev/imx_display.c
+--- xserver-xorg-video-imx-viv-3.10.17-1.0.0_orig/EXA/src/vivante_fbdev/imx_display.c	2014-05-10 09:40:03.090849853 +0200
++++ xserver-xorg-video-imx-viv-3.10.17-1.0.0/EXA/src/vivante_fbdev/imx_display.c	2014-05-10 09:40:27.151535651 +0200
+@@ -1660,11 +1660,9 @@
+ 	}
+ 
+ 	// user may create a mode which is larger than native mode(s)
+-	// SL/SX does not support larger xres_virtual; so we extend yres_virtual only
+-	const int max_algined_width = IMX_ALIGN(1920, imxPtr->fbAlignWidth);
+-	const int max_aligned_height = IMX_ALIGN(1080, imxPtr->fbAlignHeight);
+-	const int max_size = max_algined_width * max_aligned_height * 2;
+-	fbVarScreenInfo.yres_virtual = max_size / fbVarScreenInfo.xres_virtual + 2;
++	fbVarScreenInfo.xres_virtual = max(IMX_ALIGN(fPtr->fbMaxWidth, imxPtr->fbAlignWidth), 1920);
++	fbVarScreenInfo.yres_virtual = max(IMX_ALIGN(fPtr->fbMaxHeight, imxPtr->fbAlignHeight), 1088) * 2;
++	fbVarScreenInfo.bits_per_pixel = 32;
+ 
+ 	if (0 != ioctl(fd, FBIOPUT_VSCREENINFO, &fbVarScreenInfo)) {
+ 		xf86DrvMsg(pScrn->scrnIndex, X_WARNING,

@@ -1,0 +1,34 @@
+# $Id$
+# Maintainer: Jan de Groot <jgc@archlinux.org>
+# Contributor: Alexander Baldeck <Alexander@archlinux.org
+
+pkgbase=xf86-input-evdev
+pkgname=xf86-input-evdev1.14
+pkgver=2.8.2
+pkgrel=1
+pkgdesc="X.org evdev input driver"
+arch=(i686 x86_64)
+url="http://xorg.freedesktop.org/"
+license=('custom')
+depends=('glibc' 'systemd-tools' 'mtdev')
+makedepends=('xorg-server1.14-devel' 'resourceproto' 'scrnsaverproto')
+conflicts=('xf86-input-evdev''xorg-server<1.14.0' 'X-ABI-XINPUT_VERSION<19' 'X-ABI-XINPUT_VERSION>=20')
+provides=("xf86-input-evdev=$pkgver")
+options=('!makeflags')
+groups=('xorg-drivers1.14' 'xorg1.14')
+source=(${url}/releases/individual/driver/${pkgbase}-${pkgver}.tar.bz2)
+sha256sums=('750461749a83bdee7771592aa5c0db5e267b18d847078a4b8622f55b04797eb3')
+
+build() {
+  cd "${srcdir}/${pkgbase}-${pkgver}"
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgbase}-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+  install -m755 -d "${pkgdir}/usr/share/licenses/${pkgbase}"
+  install -m644 COPYING "${pkgdir}/usr/share/licenses/${pkgbase}/"
+}
+
