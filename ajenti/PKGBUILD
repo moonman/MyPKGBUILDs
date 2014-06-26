@@ -1,9 +1,9 @@
 #Maintainer: Oleg Rakhmanov <orakhmanov [at] gmail [dot] com>
 
 pkgname=ajenti
-pkgver=1.2.19.8 # found under ajenti/__init__.py
+pkgver=1.2.21.11 # found under ajenti/__init__.py
 pkgrel=1
-_commit=588f7f1da679eace1775862a3be72be2d9ea7115
+_commit=44445322a774ebff379cdf7d55752c77384f9108
 
 pkgdesc="An easy server administration frontend."
 arch=('any')
@@ -14,11 +14,12 @@ depends=('python2' 'python2-gevent' 'python2-gevent-socketio'
   'python2-catcher' 'python2-reconfigure' 'python2-pyopenssl'
   'python2-pillow' 'python2-exconsole') 
 makedepends=('python2' 'coffee-script' 'lessc' 'yuicompressor' 'git')
+optdepends=('python2-dbus: services plugin dependency' 'python2-ldap: LDAP and Active Directory user synchronization support')
 source=("https://github.com/Eugeny/$pkgname/archive/${_commit}.tar.gz"
   "ajenti.install"
   "ajenti.service")
 
-md5sums=('943faeea45d624b192e7de495b1f8947'
+md5sums=('c99a4e69f5e5e85080b3bb377027dd91'
          '075c899d7c3725ee53ed479b24ff0588'
          'e5ddc4392334e0ff4cc7590bc8e4bf1e')
 
