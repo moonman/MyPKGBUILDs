@@ -1,9 +1,9 @@
 # Maintainer: Oleg Rakhmanov < orakhmanov [at] gmail [dor] com >
 
 pkgname=pogoplug
-_sourcename="cloudengines_pogoplug_3_4_1_201401211539_upgrade"
-pkgver=3.4.1
-pkgrel=2
+_sourcename="cloudengines_pogoplug_3_4_5_1_201409251502_upgrade"
+pkgver=3.4.5.1
+pkgrel=1
 
 pkgdesc="my.pogoplug.com service daemon"
 url="my.pogoplug.com"
@@ -11,14 +11,14 @@ arch=('arm')
 license=('Other')
 options=(!strip)
 install=pogoplug.install
-source=("http://upgrade.pogoplug.com/svc/upgrade/${_sourcename}"
+source=("http://service.pogoplug.com/svc/upgrade/${_sourcename}"
         'ffmpeg'
 	'pogoplug.initd'
 	'pogoplug.service'
 	'pogoplug.sh'
 	'hbplug.conf')
 
-md5sums=('a383463341b81c79c438bdf5111f4688'
+md5sums=('fc189deeafd25cb29f97d0a9745bad49'
          '74f692c0a0de67fe02be36be805948fa'
          'ea1246d017a0c45cd3815fc8c987a9b6'
          '818ac722f06d3f7be4aef3cf171926a6'
