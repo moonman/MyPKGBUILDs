@@ -1,0 +1,22 @@
+From 0a5ed8afee20be8e5ea6defd9cb50aee1fb170c4 Mon Sep 17 00:00:00 2001
+From: Jason Montleon <jmontleo@redhat.com>
+Date: Tue, 25 Feb 2014 11:58:52 -0500
+Subject: [PATCH] work around non-working uhs mode
+
+(cherry picked from commit 3dec5836da77d0ec4041711486c0c3a4ee75b8e7)
+---
+ arch/arm/boot/dts/imx6qdl-cubox-i.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/boot/dts/imx6qdl-cubox-i.dtsi b/arch/arm/boot/dts/imx6qdl-cubox-i.dtsi
+index 6a524ca..8df3d6d 100644
+--- a/arch/arm/boot/dts/imx6qdl-cubox-i.dtsi
++++ b/arch/arm/boot/dts/imx6qdl-cubox-i.dtsi
+@@ -197,6 +197,7 @@
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_cubox_i_usdhc2_aux &pinctrl_cubox_i_usdhc2>;
+ 	vmmc-supply = <&reg_3p3v>;
++    no-1-8-v;
+ 	cd-gpios = <&gpio1 4 0>;
+ 	status = "okay";
+ };
