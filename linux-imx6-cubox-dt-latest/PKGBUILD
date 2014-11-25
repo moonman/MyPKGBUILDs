@@ -35,7 +35,7 @@ md5sums=('ce49828adecf8908eb3a9ffc5b860d44'
          'd969bff94832e0df0ffe42c7978dea9e'
          'ddf7876487c876f6676ef0e050e9d204'
          'SKIP'
-         '88ece683d2734b033b183313d4ad7bc2'
+         'b628400dc6635d5056e74260ee5e2c95'
          '065dfb596e42d2c92a34936ae9e718cd'
          'f5523479e045810acd2baf05f12f7b2c'
          '0202585b76071b7ca1263515e2b4f23b')
@@ -173,7 +173,7 @@ package_linux-headers-imx6-cubox-dt-latest() {
 
   install -dm755 "${pkgdir}/usr/lib/modules/${_kernver}"
 
-  cd "${srcdir}/${_srcname}"
+  cd "${srcdir}/linux-${pkgver}"
   install -D -m644 Makefile \
     "${pkgdir}/usr/lib/modules/${_kernver}/build/Makefile"
   install -D -m644 kernel/Makefile \
