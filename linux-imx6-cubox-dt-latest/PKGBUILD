@@ -4,11 +4,11 @@ pkgbase=linux-imx6-cubox-dt-latest
 pkgname=('linux-imx6-cubox-dt-latest' 'linux-headers-imx6-cubox-dt-latest')
 # pkgname=linux-custom       # Build kernel with a different name
 _kernelname=${pkgname#linux}
-pkgver=3.17.4
+pkgver=3.18.6
 pkgrel=1
 cryptodev_commit=6aa62a2c320b04f55fdfe0ed015c3d9b48997239
-rmk_patch_date=20141027
-bfqver=v7r6
+rmk_patch_date=20141216
+bfqver=v7r7
 
 
 arch=('armv7h')
@@ -17,28 +17,27 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'uboot-mkimage' 'git' 'lzop')
 options=('!strip')
 source=("ftp://ftp.kernel.org/pub/linux/kernel/v3.x/linux-${pkgver}.tar.xz"
-        "http://www.home.arm.linux.org.uk/~rmk/cubox/hummingboard-cubox-i-v${pkgver:0:4}-${rmk_patch_date}.diff"
+        "http://www.home.arm.linux.org.uk/~rmk/cubox/hummingboard-cubox-i-v${pkgver:0:4}-${rmk_patch_date}.diff.bz2"
         'fix-broken-sd-uhs-mode.patch'
-        'etnaviv.patch'
         'sdma-imx6q.bin.ihex'
         "cryptodev.tar.gz::https://github.com/cryptodev-linux/cryptodev-linux/archive/${cryptodev_commit}.tar.gz"
-        "git://git.code.sf.net/p/aufs/aufs3-standalone#branch=aufs${pkgver:0:4}"
+#        "git://git.code.sf.net/p/aufs/aufs3-standalone#branch=aufs3.x-rcN"
+        "git://git.code.sf.net/p/aufs/aufs3-standalone#branch=aufs${pkgver:0:4}.1+"
         'config'
-        "http://algo.ing.unimo.it/people/paolo/disk_sched/patches/${pkgver:0:4}.0-${bfqver}/0001-block-cgroups-kconfig-build-bits-for-BFQ-${bfqver}-${pkgver:0:4}.patch"
-        "http://algo.ing.unimo.it/people/paolo/disk_sched/patches/${pkgver:0:4}.0-${bfqver}/0002-block-introduce-the-BFQ-${bfqver}-I-O-sched-for-${pkgver:0:4}.patch"
-        "http://algo.ing.unimo.it/people/paolo/disk_sched/patches/${pkgver:0:4}.0-${bfqver}/0003-block-bfq-add-Early-Queue-Merge-EQM-to-BFQ-${bfqver}-for-${pkgver:0:4}.0.patch")
+        "ftp://teambelgium.net/bfq/patches/${pkgver:0:4}.0-${bfqver}/0001-block-cgroups-kconfig-build-bits-for-BFQ-${bfqver}-${pkgver:0:4}.patch"
+        "ftp://teambelgium.net/bfq/patches/${pkgver:0:4}.0-${bfqver}/0002-block-introduce-the-BFQ-${bfqver}-I-O-sched-for-${pkgver:0:4}.patch"
+        "ftp://teambelgium.net/bfq/patches/${pkgver:0:4}.0-${bfqver}/0003-block-bfq-add-Early-Queue-Merge-EQM-to-BFQ-${bfqver}-for-${pkgver:0:4}.0.patch")
 
-md5sums=('ce49828adecf8908eb3a9ffc5b860d44'
-         '05983ce4001171bfe7065009a8721520'
+md5sums=('997c8492ebfdc9bb9e6ed8d4945539dd'
+         '7fd7fe6e163bd08978545ae8eeb75df2'
          'b379e48c94d21dc41986b129e3e7af74'
-         'e5154f162caf7cdecf943ff4f9e4442e'
          'd969bff94832e0df0ffe42c7978dea9e'
          'ddf7876487c876f6676ef0e050e9d204'
          'SKIP'
-         'b628400dc6635d5056e74260ee5e2c95'
-         '065dfb596e42d2c92a34936ae9e718cd'
-         'f5523479e045810acd2baf05f12f7b2c'
-         '0202585b76071b7ca1263515e2b4f23b')
+         'eede7392f76a2467e648ee1c92076eca'
+         '1c7c2d0338939a9e6953a64d80861471'
+         'a81346cce95baeac2c56cf60d3c7e5b6'
+         '8f2743651280f5a022e541f4e95e5546')
 
 prepare() {
   cd "${srcdir}/linux-${pkgver}"
@@ -46,7 +45,6 @@ prepare() {
 msg2 "Add cubox and hummingboard support: rmk's patches"
   patch -Np1 -i ${srcdir}/hummingboard-cubox-i-v${pkgver:0:4}-${rmk_patch_date}.diff
   patch -Np1 -i ${srcdir}/fix-broken-sd-uhs-mode.patch
-  patch -Np1 -i ${srcdir}/etnaviv.patch
   mkdir -p "${srcdir}/linux-${pkgver}/firmware/imx/sdma/"
   cp "${srcdir}/sdma-imx6q.bin.ihex" "${srcdir}/linux-${pkgver}/firmware/imx/sdma/"
 
