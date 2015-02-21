@@ -1,9 +1,9 @@
 #Maintainer: Oleg Rakhmanov <orakhmanov [at] gmail [dot] com>
 
 pkgname=ajenti
-pkgver=1.2.21.21 # found under ajenti/__init__.py
+pkgver=1.2.22.17 # found under ajenti/__init__.py
 pkgrel=1
-_commit=d039a4ca67b0f906bc26a8efe1516d6a747d73e3
+_commit=09496c82b9dbf14c7a6cc7af98f0114447bb40e1
 
 pkgdesc="An easy server administration frontend."
 arch=('any')
@@ -16,18 +16,25 @@ depends=('python2' 'python2-gevent' 'python2-gevent-socketio'
 makedepends=('python2' 'coffee-script' 'lessc' 'yuicompressor' 'git')
 optdepends=('python2-dbus: services plugin dependency' 'python2-ldap: LDAP and Active Directory user synchronization support')
 source=("https://github.com/Eugeny/$pkgname/archive/${_commit}.tar.gz"
-  "ajenti.install"
-  "ajenti.service")
+        "ajenti.install"
+        "ajenti.service"
+        "fix-systemd.patch")
 
-md5sums=('70dc4a18bdce8916a515fe10f1233142'
+md5sums=('80e6240a9dbf07bfdbc85b31658bac17'
          '075c899d7c3725ee53ed479b24ff0588'
-         'e5ddc4392334e0ff4cc7590bc8e4bf1e')
+         'e5ddc4392334e0ff4cc7590bc8e4bf1e'
+         '13c9c0d3e14d626a11b1db239f9d3248')
 
 backup=('etc/ajenti/config.json')
 
 prepare() {
   cd "$srcdir/$pkgname-$_commit"
-  
+
+  # Revert commit f6167e92d1be92901c97567f7f53a59b12418eb1
+  # https://github.com/Eugeny/ajenti/commit/f6167e92d1be92901c97567f7f53a59b12418eb1
+  # Fixes to systemd services show up.
+  patch -Np1 -i ${srcdir}/fix-systemd.patch
+
   msg2 'Replacing python shebang by python2 shebang...'
   find . -type f -exec sed -i \
     -e'1s|^#!/usr/bin/env python$|#!/usr/bin/env python2|' \
