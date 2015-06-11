@@ -1,8 +1,8 @@
 # Maintainer: Oleg Rakhmanov < orakhmanov [at] gmail [dor] com >
 
 pkgname=pogoplug
-_sourcename="cloudengines_pogoplug_3_4_5_10_201503041644_upgrade"
-pkgver=3.4.5.10
+_sourcename="cloudengines_pogoplug_3_4_5_13_201505261044_upgrade"
+pkgver=3.4.5.13
 pkgrel=1
 
 pkgdesc="my.pogoplug.com service daemon"
@@ -18,7 +18,7 @@ source=("http://service.pogoplug.com/svc/upgrade/${_sourcename}"
 	'pogoplug.sh'
 	'hbplug.conf')
 
-md5sums=('6d72ab41601e6621ce7d535dcf2faeae'
+md5sums=('dda2cc320ba8e95017edd41b7417921c'
          '74f692c0a0de67fe02be36be805948fa'
          'ea1246d017a0c45cd3815fc8c987a9b6'
          '818ac722f06d3f7be4aef3cf171926a6'
