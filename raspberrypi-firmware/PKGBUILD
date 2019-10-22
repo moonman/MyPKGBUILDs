@@ -1,13 +1,11 @@
-# Maintainer: Kevin Mihelich <kevin@archlinuxarm.org>
-
-buildarch=20
+# Maintainer: Oleg Rakhmanov <oleg [at] archlinuxarm [dot] org>
 
 pkgname=raspberrypi-firmware
 pkgver=20191022
 pkgrel=1
 _commit=8062d68f49cb54c8cea3c1c9ae3b30d799d23352
 pkgdesc="Firmware tools, libraries, and headers for Raspberry Pi"
-arch=('aarch64')
+arch=('armv6h' 'armv7h' 'aarch64')
 url="https://github.com/raspberrypi/userland"
 license=('custom')
 makedepends=('cmake')
