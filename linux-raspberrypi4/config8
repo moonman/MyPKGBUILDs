@@ -1,10 +1,10 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 4.19.79-1 Kernel Configuration
+# Linux/arm64 4.19.80-1 Kernel Configuration
 #
 
 #
-# Compiler: gcc (GCC) 8.3.0
+# Compiler: aarch64-unknown-linux-gnu-gcc (GCC) 8.3.0
 #
 CONFIG_CC_IS_GCC=y
 CONFIG_GCC_VERSION=80300
@@ -3982,6 +3982,7 @@ CONFIG_VIDEO_OV7640=m
 # CONFIG_VIDEO_OV7740 is not set
 # CONFIG_VIDEO_OV9650 is not set
 # CONFIG_VIDEO_OV13858 is not set
+CONFIG_VIDEO_IRS1125=m
 # CONFIG_VIDEO_VS6624 is not set
 # CONFIG_VIDEO_MT9M032 is not set
 # CONFIG_VIDEO_MT9M111 is not set
@@ -5089,7 +5090,6 @@ CONFIG_USB_EMI62=m
 CONFIG_USB_EMI26=m
 CONFIG_USB_ADUTUX=m
 CONFIG_USB_SEVSEG=m
-CONFIG_USB_RIO500=m
 CONFIG_USB_LEGOTOWER=m
 CONFIG_USB_LCD=m
 CONFIG_USB_CYPRESS_CY7C63=m
