@@ -37,6 +37,7 @@ package() {
   cd ${srcdir}/userland-${_commit}
   make install DESTDIR="${pkgdir}"
   cp ../LICENCE "${pkgdir}"/opt/vc
+  rm -rf "${pkgdir}"/opt/vc/src
 
   # Create lib links
   mkdir -p "${pkgdir}"/etc/ld.so.conf.d/
