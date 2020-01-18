@@ -1,15 +1,20 @@
 # Maintainer: Dave Higham <pepedog@archlinuxarm.org>
 # Maintainer: Kevin Mihelich <kevin@archlinuxarm.org>
 # Maintainer: Oleg Rakhmanov <oleg@archlinuxarm.org>
+######################################################
+# config for armv7h is not maintained, but is here
+# in case this package needs to be built for armv7h
+# some day
+######################################################
 
 buildarch=12
 
 pkgbase=linux-raspberrypi4
-_commit=edc6ef437bd690772d7a562adeea6c85daf11440
+_commit=a3278851d08c3fee99870cf09134e526f43cdee8
 _srcname=linux-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Raspberry Pi 4"
-pkgver=4.19.89
+pkgver=4.19.95
 pkgrel=1
 arch=('armv7h' 'aarch64')
 url="http://www.kernel.org/"
@@ -25,7 +30,7 @@ source=("https://github.com/raspberrypi/linux/archive/${_commit}.tar.gz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('5b332216aef3011692fb8d0f8a1399aa'
+md5sums=('d8cc4be98c124269c38af2b267a62705'
          '7c6b37a1353caccf6d3786bb4161c218'
          '1cac5b1e040fd4bd6535cb6d0ffe487c'
          '60bc3624123c183305677097bcd56212'
