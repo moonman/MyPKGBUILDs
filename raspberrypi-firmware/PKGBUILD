@@ -1,7 +1,7 @@
 # Maintainer: Oleg Rakhmanov <oleg [at] archlinuxarm [dot] org>
 
 pkgname=raspberrypi-firmware
-pkgver=20200117
+pkgver=20200227
 pkgrel=1
 _commit=06bc6daa02137ca72b7a2104afad81e82a44de17
 pkgdesc="Firmware tools, libraries, and headers for Raspberry Pi"
