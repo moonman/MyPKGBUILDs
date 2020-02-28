@@ -10,11 +10,11 @@
 buildarch=12
 
 pkgbase=linux-raspberrypi4-latest
-_commit=6a3905568dc10670a25d7fdafbf9f6513af2c60f
+_commit=a70d5691534618a3180ccc824957145016cfc97e
 _srcname=linux-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Raspberry Pi 4"
-pkgver=5.5.2
+pkgver=5.5.6
 pkgrel=1
 arch=('armv7h' 'aarch64')
 url="http://www.kernel.org/"
@@ -30,7 +30,7 @@ source=("https://github.com/raspberrypi/linux/archive/${_commit}.tar.gz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('580a8902e5e57e1f60bd9a5d5fb374ca'
+md5sums=('903c4e9e9f505d360efe467ed32f99d6'
          '7c6b37a1353caccf6d3786bb4161c218'
          '1cac5b1e040fd4bd6535cb6d0ffe487c'
          '60bc3624123c183305677097bcd56212'
