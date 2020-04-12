@@ -10,11 +10,11 @@
 buildarch=12
 
 pkgbase=linux-raspberrypi4-latest
-_commit=4c4958f903d8644a00b4ea20889f4356e698a917
+_commit=0b5da293d8cd525401354dfbbcc2f758b7bf5b0a
 _srcname=linux-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Raspberry Pi 4"
-pkgver=5.5.8
+pkgver=5.6.2
 pkgrel=1
 arch=('armv7h' 'aarch64')
 url="http://www.kernel.org/"
@@ -22,6 +22,7 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
 options=('!strip')
 source=("https://github.com/raspberrypi/linux/archive/${_commit}.tar.gz"
+	"disable-gcc-plugins.patch::https://github.com/raspberrypi/linux/commit/0b5da293d8cd525401354dfbbcc2f758b7bf5b0a.patch"
         'config.txt'
         'config8.txt'
         'cmdline.txt'
@@ -30,12 +31,13 @@ source=("https://github.com/raspberrypi/linux/archive/${_commit}.tar.gz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('22641694e2b925f599307de577e0df3d'
+md5sums=('ced3c4daf71ac79a8297db3c51c661da'
+         '1107edf778f7a11eeaf6d2537222dd99'
          '7c6b37a1353caccf6d3786bb4161c218'
          '1cac5b1e040fd4bd6535cb6d0ffe487c'
          '60bc3624123c183305677097bcd56212'
          '88377d47502f174a4cdfa37cc80f61d0'
-         '218f3a1690c1235feb6ab8cf429f92ee'
+         '3407043127fc303e3570084c19a11724'
          '86d4a35722b5410e3b29fc92dae15d4b'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '69e1db90d78f691dc446fe2ab94727eb')
@@ -45,6 +47,8 @@ prepare() {
 
   [[ $CARCH == "armv7h" ]]  &&  cat "${srcdir}/config" > ./.config
   [[ $CARCH == "aarch64" ]] &&  cat "${srcdir}/config8" > ./.config
+
+  patch -Rp1 -i ../disable-gcc-plugins.patch
 
   # add pkgrel to extraversion
   sed -ri "s|^(EXTRAVERSION =)(.*)|\1 \2-${pkgrel}|" Makefile
