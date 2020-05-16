@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 5.4.38-1 Kernel Configuration
+# Linux/arm64 5.4.40-1 Kernel Configuration
 #
 
 #
@@ -4182,6 +4182,7 @@ CONFIG_VIDEO_CX25840=m
 # CONFIG_VIDEO_IMX219 is not set
 # CONFIG_VIDEO_IMX258 is not set
 # CONFIG_VIDEO_IMX274 is not set
+# CONFIG_VIDEO_IMX477 is not set
 # CONFIG_VIDEO_IMX319 is not set
 # CONFIG_VIDEO_IMX355 is not set
 # CONFIG_VIDEO_OV2640 is not set
@@ -5830,6 +5831,7 @@ CONFIG_SYNC_FILE=y
 # CONFIG_SW_SYNC is not set
 # CONFIG_UDMABUF is not set
 # CONFIG_DMABUF_SELFTESTS is not set
+# CONFIG_DMABUF_HEAPS is not set
 # end of DMABUF options
 
 CONFIG_AUXDISPLAY=y
